@@ -21,6 +21,8 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
     /** @var  ObjectManager */
     protected $manager;
 
+    protected $items;
+
     protected function getFixturesDir()
     {
         if($this->container->hasParameter('app.fixture.dir')){
@@ -63,11 +65,11 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
         return $obj->execute($data);
     }
 
-    public function execute()
+    protected function execute()
     {
         $manager = $this->manager;
-        $items   = $this->processFixtures($this->getEntityClass(), $this->getYamlFileName());
-        foreach ($items as $item) {
+        $this->items   = $this->processFixtures($this->getEntityClass(), $this->getYamlFileName());
+        foreach ($this->items as $item) {
             $manager->persist($item);
         }
         $manager->flush();

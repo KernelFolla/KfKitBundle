@@ -31,7 +31,7 @@ class FixturesProcessor
             if (!is_numeric($reference)) {
                 $this->loader->setReference($reference, $obj);
             }
-            $items[] = $obj;
+            $items[$reference] = $obj;
         }
 
         return $items;
