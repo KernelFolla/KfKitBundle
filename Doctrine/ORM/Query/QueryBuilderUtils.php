@@ -18,7 +18,7 @@ class QueryBuilderUtils
         if ($multiField) {
             $rules = array();
             foreach ($fields as $field) {
-                $rules[] = $x->like($field, $w);
+                $rules[] = $x->like(sprintf('LOWER(%s)',$field), $w);
             }
             $query->andWhere(self::mergeArrayOfRules($rules, self::_OR));
         } else {
@@ -28,7 +28,7 @@ class QueryBuilderUtils
 
     public static function addBasicSearchToQuery(QueryBuilder $query, $fields, $search)
     {
-        $s          = explode(' ', $search);
+        $s          = explode(' ', strtolower($search));
         $x          = $query->expr();
         $multiField = is_array($fields);
 
@@ -37,7 +37,7 @@ class QueryBuilderUtils
             if ($multiField) {
                 $rules = array();
                 foreach ($fields as $field) {
-                    $rules[] = $x->like($field, $w);
+                    $rules[] = $x->like(sprintf('LOWER(%s)',$field), $w);
                 }
                 $query->andWhere(self::mergeArrayOfRules($rules, self::_OR));
             } else {
