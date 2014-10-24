@@ -6,7 +6,7 @@ namespace Kf\KitBundle\Doctrine\Fixtures;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Kf\KitBundle\Utils\StringUtils;
 
-class FixturesProcessor
+class ArrayFixturesProcessor
 {
     protected $accessor;
 

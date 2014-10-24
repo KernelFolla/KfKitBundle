@@ -3,7 +3,6 @@
 namespace Kf\KitBundle\Doctrine\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture as BaseFixture;
-use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -60,7 +59,7 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
         $data = Yaml::parse(file_get_contents($fileName));
         if(!isset($data['class']))
             $data['class'] = $class;
-        $obj = new FixturesProcessor($this);
+        $obj = new ArrayFixturesProcessor($this);
 
         return $obj->execute($data);
     }
