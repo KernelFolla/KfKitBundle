@@ -6,6 +6,9 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository as BaseEntityRepository;
 use Kf\KitBundle\Doctrine\ORM\Query\QueryBuilderUtils;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class EntityRepository extends BaseEntityRepository
 {
     const ALIAS = 'entity';

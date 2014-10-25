@@ -9,13 +9,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class AbstractFixture extends BaseFixture implements ContainerAwareInterface
 {
     protected $entityClass;
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     protected $container;
     /** @var  ObjectManager */
     protected $manager;
@@ -24,11 +25,12 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
 
     protected function getFixturesDir()
     {
-        if($this->container->hasParameter('app.fixture.dir')){
+        if ($this->container->hasParameter('app.fixture.dir')) {
             return $this->container->getParameter('app.fixture.dir');
-        }else{
+        } else {
             $reflector = new \ReflectionClass(get_class($this));
-            return dirname($reflector->getFileName()).'/fixtures';
+
+            return dirname($reflector->getFileName()) . '/fixtures';
         }
     }
 
@@ -54,11 +56,12 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
     protected function processFixtures($class, $fileName)
     {
         if (!file_exists($fileName)) {
-            throw new \Exception($fileName.' fixtures file not found');
+            throw new \Exception($fileName . ' fixtures file not found');
         }
         $data = Yaml::parse(file_get_contents($fileName));
-        if(!isset($data['class']))
+        if (!isset($data['class'])) {
             $data['class'] = $class;
+        }
         $obj = new ArrayFixturesProcessor($this);
 
         return $obj->execute($data);
@@ -66,8 +69,8 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
 
     protected function execute()
     {
-        $manager = $this->manager;
-        $this->items   = $this->processFixtures($this->getEntityClass(), $this->getYamlFileName());
+        $manager     = $this->manager;
+        $this->items = $this->processFixtures($this->getEntityClass(), $this->getYamlFileName());
         foreach ($this->items as $item) {
             $manager->persist($item);
         }
@@ -76,9 +79,10 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
 
     protected function getEntityClass()
     {
-        if(!isset($this->entityClass)){
+        if (!isset($this->entityClass)) {
             throw new \Exception('please define entityClass');
         }
+
         return $this->entityClass;
     }
 
@@ -86,6 +90,7 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
     {
         $x = $this->getEntityClass();
         $x = trim(strtolower(str_replace("Bundle\\Entity\\", '_', substr($x, strpos($x, "\\")))), "\\");
+
 //        echo $this->getFixturesDir() . "/$x.yml\r\n";
         return $this->getFixturesDir() . "/$x.yml";
     }
@@ -95,12 +100,12 @@ class AbstractFixture extends BaseFixture implements ContainerAwareInterface
         $filename = $name;
         $path     = $this->getFixturesDir() . '/media/';
         $fullname = $path . $filename;
+
         return new UploadedFile(
             $fullname, $filename,
-            finfo_file( finfo_open( FILEINFO_MIME_TYPE ), $fullname ),
+            finfo_file(finfo_open(FILEINFO_MIME_TYPE), $fullname),
             filesize($fullname),
             null
         );
     }
-
 }

@@ -4,6 +4,9 @@ namespace Kf\KitBundle\Doctrine\ORM\Query;
 
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class QueryBuilderUtils
 {
     const _AND = 'AND';

@@ -4,6 +4,9 @@ namespace Kf\KitBundle\Symfony\Controller;
 
 use Kf\KitBundle\Doctrine\ORM\Repository\EntityRepository;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 trait DoctrineORMHelper{
     /**
      * @param      $entity

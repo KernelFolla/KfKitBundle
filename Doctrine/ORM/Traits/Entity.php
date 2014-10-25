@@ -3,6 +3,9 @@
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 trait Entity
 {
     /**

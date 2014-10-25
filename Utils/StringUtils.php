@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle\Utils;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class StringUtils
 {
     public static function startsWith($haystack, $needle)

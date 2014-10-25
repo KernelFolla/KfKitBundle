@@ -8,7 +8,9 @@ use Swift_Message;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * easy mail dispatching
+ * easy mail dispatching using only a twig template
+ *
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
 class MailDispatcher
 {

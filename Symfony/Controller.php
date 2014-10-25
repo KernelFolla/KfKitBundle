@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Kf\KitBundle\Symfony\Controller as Helpers;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class Controller extends BaseController
 {
     use Helpers\DoctrineORMHelper;

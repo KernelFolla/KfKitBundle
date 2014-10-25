@@ -23,18 +23,17 @@ class PaginationBuilder
     }
 
     /**
-     * @param Request            $req
-     * @param                    $target
+     * @param $target
      *
      * @return SlidingPagination
      */
     public function createPagination($target)
     {
-        $req = $this->request;
+        $req    = $this->request;
         $path   = $this->evalRoute($req->get('_route'));
         $routes = $req->get('_route_params');
 
-        $page           = $routes['page'];
+        $page           = $routes['page'] ?: 1;
         $items_per_page = isset($routes['items_per_page']) ?
             $routes['items_per_page']
             : $this->defaultItemsPerPage;

@@ -4,6 +4,9 @@ namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
 use Kf\KitBundle\Functions;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 trait StatusableEntity
 {
     /**

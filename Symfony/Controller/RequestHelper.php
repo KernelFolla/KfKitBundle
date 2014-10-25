@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle\Symfony\Controller;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 trait RequestHelper{
     /**
      * returns true after a standard form bind/validation

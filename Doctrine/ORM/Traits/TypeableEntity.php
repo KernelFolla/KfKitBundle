@@ -4,6 +4,9 @@ namespace Kf\KitBundle\Doctrine\Orm\Traits;
 
 use Kf\KitBundle\Functions;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 trait TypeableEntity
 {
     /**

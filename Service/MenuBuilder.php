@@ -7,11 +7,13 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Knp\Menu\Matcher\MatcherInterface;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class MenuBuilder
 {
     private $factory;
     private $matcher;
-    private $menu;
 
     /** @var  ContainerInterface */
     private $container;

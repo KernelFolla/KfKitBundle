@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle\Model;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class StaticEnum
 {
     static protected $enum = array();

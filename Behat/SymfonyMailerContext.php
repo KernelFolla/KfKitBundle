@@ -3,11 +3,15 @@
 namespace Kf\KitBundle\Behat;
 
 use Kf\KitBundle\Behat\Exception\TextException;
+use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /**
  * Provides some steps/methods which are useful for testing a Symfony2 application.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ * @original https://github.com/Behat/CommonContexts/blob/master/Behat/CommonContexts/SymfonyMailerContext.php
  */
 class SymfonyMailerContext extends DefaultContext
 {
@@ -20,7 +24,7 @@ class SymfonyMailerContext extends DefaultContext
      */
     public function noEmailShouldHaveBeenSent()
     {
-        if (0 < $count = $this->loadProfile()->getCollector('swiftmailer')->getMessageCount()) {
+        if (0 < $count = $this->getMessagesCollector()->getMessageCount()) {
             throw new \RuntimeException(sprintf('Expected no email to be sent, but %d emails were sent.', $count));
         }
     }
@@ -30,13 +34,13 @@ class SymfonyMailerContext extends DefaultContext
      */
     public function emailWithSubjectShouldHaveBeenSent($subject, $to = null)
     {
-        $mailer = $this->loadProfile()->getCollector('swiftmailer');
+        $mailer = $this->getMessagesCollector();
         if (0 === $mailer->getMessageCount()) {
             throw new \RuntimeException('No emails have been sent.');
         }
 
         $foundToAddresses = null;
-        $foundSubjects = array();
+        $foundSubjects    = array();
         foreach ($mailer->getMessages('default') as $message) {
             $foundSubjects[] = $message->getSubject();
 
@@ -64,14 +68,22 @@ class SymfonyMailerContext extends DefaultContext
 
         if (!$foundToAddresses) {
             if (!empty($foundSubjects)) {
-                throw new \RuntimeException(sprintf('Subject "%s" was not found, but only these subjects: "%s"', $subject, implode('", "', $foundSubjects)));
+                throw new \RuntimeException(
+                    sprintf(
+                        'Subject "%s" was not found, but only these subjects: "%s"',
+                        $subject,
+                        implode('", "', $foundSubjects)
+                    )
+                );
             }
 
             // not found
             throw new \RuntimeException(sprintf('No message with subject "%s" found.', $subject));
         }
 
-        throw new \RuntimeException(sprintf('Subject found, but "%s" is not among to-addresses: %s', $to, $foundToAddresses));
+        throw new \RuntimeException(
+            sprintf('Subject found, but "%s" is not among to-addresses: %s', $to, $foundToAddresses)
+        );
     }
 
     /**
@@ -81,7 +93,7 @@ class SymfonyMailerContext extends DefaultContext
      * be used.
      *
      * @param string $token
-     * @return \Symfony\Component\HttpKernel\Profiler\Profile
+     * @return Profile
      * @throws \RuntimeException
      */
     public function loadProfile($token = null)
@@ -90,7 +102,9 @@ class SymfonyMailerContext extends DefaultContext
             $headers = $this->getSession()->getResponseHeaders();
 
             if (!isset($headers['X-Debug-Token']) && !isset($headers['x-debug-token'])) {
-                throw new \RuntimeException('Debug-Token not found in response headers. Have you turned on the debug flag?');
+                throw new \RuntimeException(
+                    'Debug-Token not found in response headers. Have you turned on the debug flag?'
+                );
             }
             $token = isset($headers['X-Debug-Token']) ? $headers['X-Debug-Token'] : $headers['x-debug-token'];
             if (is_array($token)) {
@@ -102,7 +116,7 @@ class SymfonyMailerContext extends DefaultContext
     }
 
     /**
-     * @return  \Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector
+     * @return  MessageDataCollector
      */
     protected function getMessagesCollector()
     {
@@ -125,16 +139,20 @@ class SymfonyMailerContext extends DefaultContext
                 $toAddresses = $message->getTo();
                 if (array_key_exists($to, $toAddresses)) {
                     $this->mail[$as] = $message;
+
                     return;
                 } else {
-                    $foundToAddresses = array_merge($foundToAddresses,$toAddresses);
+                    $foundToAddresses = array_merge($foundToAddresses, $toAddresses);
                 }
             } else {
                 $this->mail[$as] = $message;
+
                 return;
             }
         }
-        throw new \RuntimeException(sprintf('"%s" is not among to-addresses: %s', $to, implode(',', array_keys($foundToAddresses))));
+        throw new \RuntimeException(
+            sprintf('"%s" is not among to-addresses: %s', $to, implode(',', array_keys($foundToAddresses)))
+        );
     }
 
     /**
@@ -151,9 +169,10 @@ class SymfonyMailerContext extends DefaultContext
             try {
                 $match = $router->match($path);
                 $check = $match['_route'];
-                
+
                 if ($check == $route) {
                     $this->getSession()->visit($url);
+
                     return;
                 } else {
                     $found[] = $check;
@@ -163,11 +182,13 @@ class SymfonyMailerContext extends DefaultContext
             }
         }
 
-        throw new \RuntimeException(sprintf(
-            'route "%s" not found, I\'ve found: %s',
-            $route,
-            implode(', ', $found)
-        ));
+        throw new \RuntimeException(
+            sprintf(
+                'route "%s" not found, I\'ve found: %s',
+                $route,
+                implode(', ', $found)
+            )
+        );
     }
 
     /**
@@ -178,17 +199,19 @@ class SymfonyMailerContext extends DefaultContext
         $doc = new \DOMDocument;
         $doc->loadhtml($this->mail[$called]->getBody());
         $xpath = new \DOMXPath($doc);
-        foreach( $xpath->query('//a') as $a ) {
+        foreach ($xpath->query('//a') as $a) {
             $links[trim(strip_tags($a->nodeValue))] = $a->getAttribute('href');
         }
-        if(isset($links[$text])){
+        if (isset($links[$text])) {
             $this->getSession()->visit($links[$text]);
-        }else{
-            throw new \RuntimeException(sprintf(
-               'link "%s" not found, I\'ve found: %s',
-               $text,
-               implode(', ', array_keys($links))
-           ));
+        } else {
+            throw new \RuntimeException(
+                sprintf(
+                    'link "%s" not found, I\'ve found: %s',
+                    $text,
+                    implode(', ', array_keys($links))
+                )
+            );
         }
     }
 
@@ -234,18 +257,17 @@ class SymfonyMailerContext extends DefaultContext
     }
 
 
-
     /**
      * Checks that current page contains text.
      *
      * @param string $text
-     *
-     * @throws ResponseTextException
+     * @param        $actual
+     * @throws TextException
      */
     public function textContains($text, $actual)
     {
         $actual = preg_replace('/\s+/u', ' ', $actual);
-        $regex  = '/'.preg_quote($text, '/').'/ui';
+        $regex  = '/' . preg_quote($text, '/') . '/ui';
 
         if (!preg_match($regex, $actual)) {
             $message = sprintf('The text "%s" was not found anywhere in the text of the current page.', $text);
@@ -258,24 +280,27 @@ class SymfonyMailerContext extends DefaultContext
      *
      * @param string $text
      *
-     * @throws ResponseTextException
+     * @param        $actual
+     * @throws TextException
      */
     public function textNotContains($text, $actual)
     {
         $actual = preg_replace('/\s+/u', ' ', $actual);
-        $regex  = '/'.preg_quote($text, '/').'/ui';
+        $regex  = '/' . preg_quote($text, '/') . '/ui';
 
         if (preg_match($regex, $actual)) {
             $message = sprintf('The text "%s" appears in the text of this page, but it should not.', $text);
             throw new TextException($message, $actual);
         }
     }
+
     /**
      * Checks that current page text matches regex.
      *
      * @param string $regex
      *
-     * @throws ResponseTextException
+     * @param        $actual
+     * @throws TextException
      */
     public function textMatches($regex, $actual)
     {
@@ -290,8 +315,8 @@ class SymfonyMailerContext extends DefaultContext
      * Checks that current page text does not matches regex.
      *
      * @param string $regex
-     *
-     * @throws ResponseTextException
+     * @param        $actual
+     * @throws TextException
      */
     public function textNotMatches($regex, $actual)
     {

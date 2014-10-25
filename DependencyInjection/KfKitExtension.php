@@ -8,12 +8,17 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class KfKitExtension extends Extension
 {
     const ALIAS = 'kf_kit';
 
     /**
      * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::load()
+     * @param array            $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -56,7 +61,6 @@ class KfKitExtension extends Extension
 
     /**
      * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getAlias()
-     * @codeCoverageIgnore
      */
     public function getAlias()
     {

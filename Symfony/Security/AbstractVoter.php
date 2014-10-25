@@ -6,6 +6,9 @@ use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 abstract class AbstractVoter implements VoterInterface
 {
     const SUPPORTED_CLASS = '';

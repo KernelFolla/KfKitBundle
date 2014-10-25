@@ -13,6 +13,9 @@ use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use InvalidArgumentException;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class FixturesLoader
 {
     private $purge = true;
@@ -36,7 +39,9 @@ class FixturesLoader
      */
     public function addAll()
     {
-        $this->addKernel($this->container->get('kernel'));
+        /** @var KernelInterface $kernel */
+        $kernel = $this->container->get('kernel');
+        $this->addKernel($kernel);
 
         return $this;
     }
@@ -48,9 +53,8 @@ class FixturesLoader
     public function addKernel(KernelInterface $kernel)
     {
         foreach ($kernel->getBundles() as $bundle) {
-            $paths[] = $bundle->getPath() . '/DataFixtures/ORM';
+            $this->addPath($bundle->getPath() . '/DataFixtures/ORM');
         }
-        $this->addDir($paths);
 
         return $this;
     }
@@ -62,7 +66,7 @@ class FixturesLoader
     public function addPaths(array $paths)
     {
         foreach ($paths as $path) {
-            $this->addDirectory($path);
+            $this->addPath($path);
         }
 
         return $this;
@@ -72,7 +76,8 @@ class FixturesLoader
      * @param string $path
      * @return $this
      */
-    public function addPath($path){
+    public function addPath($path)
+    {
         if (is_dir($path)) {
             $this->loader->loadFromDirectory($path);
         }
@@ -129,6 +134,7 @@ class FixturesLoader
         $executor = new ORMExecutor($this->manager, $this->getPurger());
         $executor->execute($fixtures);
         $this->reset();
+
         return $this;
     }
 

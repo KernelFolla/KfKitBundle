@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle;
 
+/**
+ * @author Marino Di Clemente <kernelfolla@gmail.com>
+ */
 class Functions
 {
     /**
