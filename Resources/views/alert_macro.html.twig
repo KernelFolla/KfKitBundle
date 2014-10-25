@@ -1,13 +1,22 @@
 {% macro alert( type, text ) %}
-    <div class="alert alert-{{ type }}">
+    <div class="alert alert-{{ type }}" role="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{ text|raw }}
     </div>
 {% endmacro %}
 
-{% macro flashes(messages) %}
-    {% for type in ['error', 'warning', 'success', 'info'] %}
-        {% for key in app.session.flashbag.get('alert-' ~ type) %}
+{% macro flashes(messages, bags = null) %}
+    {% if not bags %}
+        {% set bags = {
+        'error': 'alert-error',
+        'warning': 'alert-warning',
+        'success': 'alert-success',
+        'info': 'alert-info'
+        } %}
+    {% endif %}
+    {% for type, bag in bags %}
+        {% for key in app.session.flashbag.get(bag) %}
+            {% set type = type == 'error' ? 'danger' : type %}
             {% if messages[key] is defined %}
                 {{ _self.alert(type, messages[key]) }}
             {% else %}

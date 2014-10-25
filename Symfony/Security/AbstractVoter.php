@@ -36,7 +36,7 @@ abstract class AbstractVoter implements VoterInterface
         $this->user   = $token->getUser();
         $this->entity = $entity;
 
-        return $this->dispatch($attribute);
+        return $this->dispatch($attribute) ?: self::ACCESS_DENIED;
     }
 
     public function supportsAttribute($attribute)
