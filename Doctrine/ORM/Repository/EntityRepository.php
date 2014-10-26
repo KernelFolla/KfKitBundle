@@ -12,13 +12,14 @@ use Kf\KitBundle\Doctrine\ORM\Query\QueryBuilderUtils;
 class EntityRepository extends BaseEntityRepository
 {
     const ALIAS = 'entity';
-
     static protected $joinColumns = [];
     static protected $searchFields = [
         'name'
     ];
 
     static protected $checkFields = [];
+
+    private $alias;
 
     /**
      * @return object
@@ -173,7 +174,10 @@ class EntityRepository extends BaseEntityRepository
                     $criteria['@join-' . $k . '-mode']
                     : '@leftjoin';
                 $criteria['@join-' . $k][$mode] = $this->getAlias() . '.' . $k;
+                $oldAlias                       = $repo->getAlias();
+                $repo->setAlias($this->getAlias() . '_' . $k);
                 $repo->processCriteria($query, $criteria['@join-' . $k]);
+                $repo->setAlias($oldAlias);
             }
         }
     }
@@ -199,7 +203,16 @@ class EntityRepository extends BaseEntityRepository
 
     public function getAlias()
     {
-        return static::ALIAS;
+        if (!isset($this->alias)) {
+            $this->alias = static::ALIAS;
+        }
+
+        return $this->alias;
+    }
+
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
     }
 
     public function getOne($criteria)
