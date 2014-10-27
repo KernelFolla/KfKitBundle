@@ -62,7 +62,12 @@ class ArrayFixturesProcessor
     private function addValue($obj, $kk, $vv)
     {
         $vv = $this->getValue($vv);
-        $this->accessor->setValue($obj, $kk, $vv);
+        if (StringUtils::startsWith($kk, '@call-')) {
+            $method = str_replace('@call-', '', $kk);
+            call_user_func_array(array($obj, $method), is_array($kk) ? $kk : [$kk]);
+        } else {
+            $this->accessor->setValue($obj, $kk, $vv);
+        }
     }
 
     private function getValue($vv)
