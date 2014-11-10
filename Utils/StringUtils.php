@@ -28,4 +28,30 @@ class StringUtils
     {
         return str_pad($num, $zerofill, '0', STR_PAD_LEFT);
     }
+        public static function num2alpha($n)
+    {
+        for($r = ""; $n >= 0; $n = intval($n / 26) - 1)
+            $r = chr($n%26 + 0x41) . $r;
+        return $r;
+    }
+
+    /*
+     * Convert a string of uppercase letters to an integer.
+     */
+    public static function alpha2num($a)
+    {
+        $l = strlen($a);
+        $n = 0;
+        for($i = 0; $i < $l; $i++)
+            $n = $n*26 + ord($a[$i]) - 0x40;
+        return $n-1;
+    }
+
+    public static function indexNumAlpha($array){
+        $ret = [];
+        foreach($array as $k => $v){
+            $ret[self::num2alpha($k)] = $v;
+        }
+        return $ret;
+    }
 }
