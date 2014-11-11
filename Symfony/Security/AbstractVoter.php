@@ -2,6 +2,7 @@
 
 namespace Kf\KitBundle\Symfony\Security;
 
+use Kf\KitBundle\Model\Traits\WithDataClass;
 use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -11,6 +12,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 abstract class AbstractVoter implements VoterInterface
 {
+    use WithDataClass;
+
     const SUPPORTED_CLASS = '';
 
     const VIEW   = 'view';
@@ -49,7 +52,8 @@ abstract class AbstractVoter implements VoterInterface
 
     public function supportsClass($class)
     {
-        return static::SUPPORTED_CLASS === $class || is_subclass_of($class, static::SUPPORTED_CLASS);
+        $dataClass = $this->getDataClass() ?: static::SUPPORTED_CLASS;
+        return $dataClass === $class || is_subclass_of($class, $dataClass);
     }
 
 
