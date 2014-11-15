@@ -20,8 +20,8 @@ class MenuBuilder
 
     public function __construct(FactoryInterface $factory, MatcherInterface $matcher, ContainerInterface $container)
     {
-        $this->factory = $factory;
-        $this->matcher = $matcher;
+        $this->factory   = $factory;
+        $this->matcher   = $matcher;
         $this->container = $container;
     }
 
@@ -35,13 +35,7 @@ class MenuBuilder
 
     protected function bindMenuItem($name, $data, ItemInterface $menu = null)
     {
-        $options = isset($data['options']) ? $data['options'] : [];
-        if (isset($options['filter'])) {
-            $options = $this->filter($name, $options, $options['filter']);
-            if (!$options) {
-                return;
-            }
-        }
+        $options = $this->bindOptions($name, $data);
 
         $child = isset($menu) ?
             $menu->addChild($name, $options)
@@ -49,7 +43,8 @@ class MenuBuilder
 
         if (isset($data['childrenMethod'])) {
             $this->childrenMethod($data['childrenMethod'], $child, $data);
-        } elseif (isset($data['children'])) {
+        }
+        if (isset($data['children'])) {
             foreach ($data['children'] as $k => $v) {
                 $this->bindMenuItem($k, $v, $child);
             }
@@ -59,6 +54,15 @@ class MenuBuilder
         }
 
         return $child;
+    }
+
+    protected function bindOptions($name, $data)
+    {
+        $options = isset($data['options']) ? $data['options'] : [];
+        if (isset($options['filter'])) {
+            $options = $this->filter($name, $options, $options['filter']);
+        }
+        return $options;
     }
 
     protected function filter($name, $data, $filter)
