@@ -156,10 +156,11 @@ class EntityRepository extends BaseEntityRepository
 
     protected function checkFields($query, $criteria)
     {
+        $a = $this->getAlias();
         foreach (static::$checkFields as $k) {
             if (isset($criteria[$k])) {
-                $query->andWhere($this->getAlias() . '.' . $k . ' = :' . $k);
-                $query->setParameter($k, $criteria[$k]);
+                $query->andWhere($a . '.' . $k . ' = :' . $a.'_'.$k);
+                $query->setParameter($a.'_'.$k, $criteria[$k]);
             }
         }
     }
