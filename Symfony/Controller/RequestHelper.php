@@ -5,7 +5,8 @@ namespace Kf\KitBundle\Symfony\Controller;
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
-trait RequestHelper{
+trait RequestHelper
+{
     /**
      * returns true after a standard form bind/validation
      *
@@ -22,6 +23,7 @@ trait RequestHelper{
         && $form->handleRequest($req)->isSubmitted()
         && $form->isValid();
     }
+
     /**
      * returns a redirect to te same route (prevents f5)
      *
@@ -30,14 +32,15 @@ trait RequestHelper{
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToRoute($route = null, $parameters = [])
+    public function redirectToRoute($route, array $parameters = [], $status = 302)
     {
         if (!isset($route)) {
             $route = $this->getRequest()->get('_route');
         }
 
         return $this->redirect(
-            $this->generateUrl($route, $parameters)
+            $this->generateUrl($route, $parameters),
+            $status
         );
     }
 
