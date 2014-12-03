@@ -2,15 +2,12 @@
 
 namespace Kf\KitBundle\Service;
 
-use JMS\DiExtraBundle\Annotation as DI;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * easy mail dispatching using only a twig template
- *
- * @author Marino Di Clemente <kernelfolla@gmail.com>
+ * easy mail dispatching
  */
 class MailDispatcher
 {
@@ -74,10 +71,15 @@ class MailDispatcher
         return $message;
     }
 
-    protected function processSettings($view, $parameters, $settings)
+    public function processSettings($view, $parameters, $settings)
+    {
+        return $this->getSettings($view, $parameters,$settings);
+    }
+
+    public function getSettings($view, $parameters, $settings = array(), $mode = 'settings')
     {
         $viewSettings = (array)json_decode(
-            $this->renderView($view, $parameters, 'settings')
+            $this->renderView($view, $parameters, $mode)
         );
         if (isset($settings['override']) && $settings['override']) {
             return array_merge($viewSettings, $settings);
