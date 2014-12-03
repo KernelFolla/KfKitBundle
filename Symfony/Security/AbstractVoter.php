@@ -16,8 +16,8 @@ abstract class AbstractVoter implements VoterInterface
 
     const SUPPORTED_CLASS = '';
 
-    const VIEW   = 'view';
-    const EDIT   = 'edit';
+    const VIEW = 'view';
+    const EDIT = 'edit';
     const DELETE = 'delete';
 
     static $attributes = array(self::VIEW, self::EDIT, self::DELETE);
@@ -53,7 +53,17 @@ abstract class AbstractVoter implements VoterInterface
     public function supportsClass($class)
     {
         $dataClass = $this->getDataClass() ?: static::SUPPORTED_CLASS;
-        return $dataClass === $class || is_subclass_of($class, $dataClass);
+        if (is_array($dataClass)) {
+            foreach ($dataClass as $check) {
+                if ($check === $class || is_subclass_of($class, $check)) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            return $dataClass === $class || is_subclass_of($class, $dataClass);
+        }
     }
 
 
