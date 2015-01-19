@@ -73,8 +73,14 @@ class ArrayFixturesProcessor
     private function getValue($vv)
     {
         if (is_array($vv)) {
-            if (isset($vv['@mode']) && $vv['@mode'] == 'recursive') {
-                return $this->execute($vv);
+            if (isset($vv['@mode'])){
+               if($vv['@mode'] == 'recursive') {
+                   return $this->execute($vv);
+               }elseif($vv['@mode'] == 'object'){
+                   $vv['items'] = [$vv['item']];
+                   $ret = $this->execute($vv);
+                   return $ret[0];
+               }
             }
             foreach ($vv as $k => $v) {
                 $vv[$k] = $this->getValue($v);

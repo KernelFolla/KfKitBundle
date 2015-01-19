@@ -33,7 +33,7 @@ class PaginationBuilder
         $path   = $this->evalRoute($req->get('_route'));
         $routes = $req->get('_route_params');
 
-        $page           = $routes['page'] ?: 1;
+        $page           = isset($routes['page']) ? $routes['page'] : 1;
         $items_per_page = isset($routes['items_per_page']) ?
             $routes['items_per_page']
             : $this->defaultItemsPerPage;
