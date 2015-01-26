@@ -14,7 +14,7 @@ trait AuthorableEntity {
 
     /**
      * @\Gedmo\Mapping\Annotation\Blameable(on="create")
-     * @\Doctrine\ORM\Mapping\ManyToOne(targetEntity="kf_kit_user")
+     * @\Doctrine\ORM\Mapping\ManyToOne(targetEntity="\kf_kit_user")
      */
     private $createdByUser;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kf\KitBundle\Doctrine\Orm\Traits;
+namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
 use Kf\KitBundle\Functions;
 
