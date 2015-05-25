@@ -28,7 +28,7 @@ abstract class AbstractVoter implements VoterInterface
 
     public function vote(TokenInterface $token, $entity, array $attributes)
     {
-        if (!$this->supportsClass(get_class($entity))) {
+        if (!(is_object($entity) || $this->supportsClass(get_class($entity)))) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
