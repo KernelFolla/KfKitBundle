@@ -11,7 +11,7 @@ trait TimestampableEntity
 
     /**
      * @\Gedmo\Mapping\Annotation\Timestampable(on="update")
-     * @\Doctrine\ORM\Mapping\Column(type="datetime")
+     * @\Doctrine\ORM\Mapping\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
 
