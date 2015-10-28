@@ -183,7 +183,7 @@ class EntityRepository extends BaseEntityRepository
         }
     }
 
-    private function addSearch($query, $s)
+    protected function addSearch($query, $s)
     {
         $fields = static::$searchFields;
         foreach ($fields as $k => $v) {

@@ -124,7 +124,16 @@ class ArrayFixturesProcessor
 
     private function processReference($ref)
     {
-        return $this->loader->getReference($ref);
+        $property = null;
+        if(strpos($ref,',')!==false) {
+            list($ref, $property) = explode(',', $ref);
+        }
+        $ret = $this->loader->getReference($ref);
+        if($property) {
+            $ret = $this->accessor->getValue($ret, $property);
+        }
+
+        return $ret;
     }
 
     private function processDatetime($ret)
