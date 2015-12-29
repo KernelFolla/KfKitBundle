@@ -10,13 +10,13 @@ trait AuthorableEntity {
      * @\Gedmo\Mapping\Annotation\Blameable(on="create")
      * @\Doctrine\ORM\Mapping\Column(type="string", nullable=true)
      */
-    private $createdBy;
+    protected $createdBy;
 
     /**
      * @\Gedmo\Mapping\Annotation\Blameable(on="create")
      * @\Doctrine\ORM\Mapping\ManyToOne(targetEntity="\kf_kit_user")
      */
-    private $createdByUser;
+    protected $createdByUser;
 
     /**
      * Sets createdBy.
