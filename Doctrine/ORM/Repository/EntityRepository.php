@@ -198,6 +198,7 @@ class EntityRepository extends BaseEntityRepository
     {
         return $this->getQuery($criteria)
             ->select('COUNT(DISTINCT ' . $this->getAlias() . ')')
+            ->resetDQLPart('orderBy')
             ->getQuery()
             ->getSingleScalarResult();
     }
