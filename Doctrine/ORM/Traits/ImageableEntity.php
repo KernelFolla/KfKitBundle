@@ -9,28 +9,28 @@ namespace Kf\KitBundle\Doctrine\ORM\Traits;
  * need to copy commented code
  *
  * @package Sch\Common\Doctrine\Traits
-// * @\Vich\UploaderBundle\Mapping\Annotation\Uploadable
+// * @Vich\UploaderBundle\Mapping\Annotation\Uploadable
  */
 trait ImageableEntity {
 //    /**
-//     * @\Symfony\Component\Validator\Constraints\File(
+//     * @Symfony\Component\Validator\Constraints\File(
 //     * maxSize="6M",
 //     * mimeTypes={"image/gif", "image/png", "image/jpeg", "image/pjpeg"}
 //     * )
-//     * @\Symfony\Component\Validator\Constraints\Image(
+//     * @Symfony\Component\Validator\Constraints\Image(
 //     *     minWidth = 300,
 //     *     minHeight = 300,
 //     *     maxWidth = 300,
 //     *     maxHeight = 300
 //     * )
-//     * @\Vich\UploaderBundle\Mapping\Annotation\UploadableField(mapping="image", fileNameProperty="imagePath")
+//     * @Vich\UploaderBundle\Mapping\Annotation\UploadableField(mapping="image", fileNameProperty="imagePath")
 //     */
 //    protected $imageFile;
 
     /**
      * @var string
      *
-     * @\Doctrine\ORM\Mapping\Column(name="imagePath", type="string", length=255, nullable=true)
+     * @Doctrine\ORM\Mapping\Column(name="imagePath", type="string", length=255, nullable=true)
      */
     private $imagePath;
 

@@ -7,14 +7,14 @@ namespace Kf\KitBundle\Doctrine\ORM\Traits;
  */
 trait AuthorableEntity {
     /**
-     * @\Gedmo\Mapping\Annotation\Blameable(on="create")
-     * @\Doctrine\ORM\Mapping\Column(type="string", nullable=true)
+     * @Gedmo\Mapping\Annotation\Blameable(on="create")
+     * @Doctrine\ORM\Mapping\Column(type="string", nullable=true)
      */
     protected $createdBy;
 
     /**
-     * @\Gedmo\Mapping\Annotation\Blameable(on="create")
-     * @\Doctrine\ORM\Mapping\ManyToOne(targetEntity="\kf_kit_user")
+     * @Gedmo\Mapping\Annotation\Blameable(on="create")
+     * @Doctrine\ORM\Mapping\ManyToOne(targetEntity="\kf_kit_user")
      */
     protected $createdByUser;
 

@@ -11,9 +11,9 @@ trait Entity
     /**
      * @var integer
      *
-     * @\Doctrine\ORM\Mapping\Column(name="id", type="integer")
-     * @\Doctrine\ORM\Mapping\Id
-     * @\Doctrine\ORM\Mapping\GeneratedValue(strategy="AUTO")
+     * @Doctrine\ORM\Mapping\Column(name="id", type="integer")
+     * @Doctrine\ORM\Mapping\Id
+     * @Doctrine\ORM\Mapping\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 

@@ -11,7 +11,7 @@ trait TypeableEntity
 {
     /**
      * @var string
-     * @\Doctrine\ORM\Mapping\Column(type="string", length=20)
+     * @Doctrine\ORM\Mapping\Column(type="string", length=20)
      */
     private $type;
 

@@ -10,15 +10,15 @@ trait NameableEntity
     /**
      * @var string
      *
-     * @\Doctrine\ORM\Mapping\Column(type="string", length=255)
+     * @Doctrine\ORM\Mapping\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @\Doctrine\ORM\Mapping\Column(type="string", length=255, nullable=false)
-     * @\Gedmo\Mapping\Annotation\Slug(fields={"name"}, updatable=true)
+     * @Doctrine\ORM\Mapping\Column(type="string", length=255, nullable=false)
+     * @Gedmo\Mapping\Annotation\Slug(fields={"name"}, updatable=true)
      */
     private $slug;
 

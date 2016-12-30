@@ -8,8 +8,8 @@ namespace Kf\KitBundle\Doctrine\ORM\Traits;
 trait CreableEntity
 {
     /**
-     * @\Gedmo\Mapping\Annotation\Timestampable(on="create")
-     * @\Doctrine\ORM\Mapping\Column(type="datetime")
+     * @Gedmo\Mapping\Annotation\Timestampable(on="create")
+     * @Doctrine\ORM\Mapping\Column(type="datetime")
      */
     protected $createdAt;
 

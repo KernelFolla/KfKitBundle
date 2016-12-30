@@ -10,8 +10,8 @@ trait TimestampableEntity
     use CreableEntity;
 
     /**
-     * @\Gedmo\Mapping\Annotation\Timestampable(on="update")
-     * @\Doctrine\ORM\Mapping\Column(type="datetime", nullable=true)
+     * @Gedmo\Mapping\Annotation\Timestampable(on="update")
+     * @Doctrine\ORM\Mapping\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
 
