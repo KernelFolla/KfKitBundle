@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
@@ -10,8 +13,8 @@ trait TimestampableEntity
     use CreableEntity;
 
     /**
-     * @Gedmo\Mapping\Annotation\Timestampable(on="update")
-     * @Doctrine\ORM\Mapping\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
 

@@ -3,6 +3,8 @@
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
@@ -11,9 +13,9 @@ trait Entity
     /**
      * @var integer
      *
-     * @Doctrine\ORM\Mapping\Column(name="id", type="integer")
-     * @Doctrine\ORM\Mapping\Id
-     * @Doctrine\ORM\Mapping\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 

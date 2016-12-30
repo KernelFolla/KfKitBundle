@@ -2,6 +2,9 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
@@ -10,15 +13,15 @@ trait NameableEntity
     /**
      * @var string
      *
-     * @Doctrine\ORM\Mapping\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @Doctrine\ORM\Mapping\Column(type="string", length=255, nullable=false)
-     * @Gedmo\Mapping\Annotation\Slug(fields={"name"}, updatable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
      */
     private $slug;
 

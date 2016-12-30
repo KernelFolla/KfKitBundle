@@ -2,14 +2,17 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
 trait CreableEntity
 {
     /**
-     * @Gedmo\Mapping\Annotation\Timestampable(on="create")
-     * @Doctrine\ORM\Mapping\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
      */
     protected $createdAt;
 

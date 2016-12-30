@@ -3,6 +3,7 @@
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
 use Kf\KitBundle\Functions;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
@@ -11,7 +12,7 @@ trait StatusableEntity
 {
     /**
      * @var string
-     * @Doctrine\ORM\Mapping\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20)
      */
     private $status;
 

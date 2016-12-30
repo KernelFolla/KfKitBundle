@@ -2,13 +2,13 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class ImageEntity
  *
  * need to copy commented code
  *
- * @package Sch\Common\Doctrine\Traits
 // * @Vich\UploaderBundle\Mapping\Annotation\Uploadable
  */
 trait ImageableEntity {
@@ -30,7 +30,7 @@ trait ImageableEntity {
     /**
      * @var string
      *
-     * @Doctrine\ORM\Mapping\Column(name="imagePath", type="string", length=255, nullable=true)
+     * @ORM\Column(name="imagePath", type="string", length=255, nullable=true)
      */
     private $imagePath;
 

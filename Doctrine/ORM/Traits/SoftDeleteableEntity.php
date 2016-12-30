@@ -2,13 +2,15 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
 trait SoftDeleteableEntity
 {
     /**
-     * @Doctrine\ORM\Mapping\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $deletedAt;
 

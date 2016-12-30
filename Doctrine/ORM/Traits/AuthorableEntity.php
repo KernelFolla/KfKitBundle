@@ -2,19 +2,22 @@
 
 namespace Kf\KitBundle\Doctrine\ORM\Traits;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @author Marino Di Clemente <kernelfolla@gmail.com>
  */
 trait AuthorableEntity {
     /**
-     * @Gedmo\Mapping\Annotation\Blameable(on="create")
-     * @Doctrine\ORM\Mapping\Column(type="string", nullable=true)
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $createdBy;
 
     /**
-     * @Gedmo\Mapping\Annotation\Blameable(on="create")
-     * @Doctrine\ORM\Mapping\ManyToOne(targetEntity="\kf_kit_user")
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="\kf_kit_user")
      */
     protected $createdByUser;
 
